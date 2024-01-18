@@ -5,7 +5,7 @@ spring:
     #    각자 PC에 만들어놓은 Database이름을 써야 합니다.
     url: ${SPRING_DATASOURCE_URL}
     #    mysql에 생성한 사용자 계정 정보를 써야 합니다.
-    username: root
+    username: todo
     password: ${SPRING_DATASOURCE_PASSWORD}
   thymeleaf:
     cache: false
@@ -13,7 +13,7 @@ spring:
   # spring data jpa 설정
   jpa:
     database: mysql
-    database-platform: org.hibernate.dialect.MySQLDialect
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
     hibernate:
       ddl-auto: update
