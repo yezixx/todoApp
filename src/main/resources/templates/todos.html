@@ -12,7 +12,28 @@
     <hr>
     <ul>
         <li th:each="todo:${todoList}">
-            <input type="checkbox" name="do" th:text="${todo.todo}" th:checked="false">
+            <form method="delete" action="/list/delete/{id}">
+                <input type="checkbox" name="todo" th:text="${todo.todo}" th:value="${todo.id}" th:checked="false"/>
+                <button th:onclick="deleteItem([[${todo.id}]])">삭제</button>
+            </form>
         </li>
     </ul>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+
+function deleteItem(id){
+    console.log(id)
+    const url = "/todo/delete/"+id
+    $.ajax({
+        type:'delete',
+        url:url,
+        contentType:'application/json; charset=utf-8'
+        }).done(function() {
+        alert('할 일이 삭제되었습니다.');
+        window.location.href = '/';
+        }).fail(function (error){
+        alert(JSON.stringify(error));
+        });
+       }
+</script>
 </html>

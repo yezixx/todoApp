@@ -5,9 +5,7 @@ import com.example.todoApp.domain.ToDo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,6 +27,14 @@ public class TodoController {
         ToDo toDo = new ToDo();
         toDo.setTodo(todo);
         toDoRepository.save(toDo);
+        return "redirect:/list";
+    }
+
+    @DeleteMapping("/list/delete/{id}")
+    public String deleteToDO(@PathVariable("id") Long id){
+        ToDo toDo = toDoRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("해당 아이템이 없습니다. id=" + id));
+        toDoRepository.delete(toDo);
         return "redirect:/list";
     }
 }
