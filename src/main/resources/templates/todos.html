@@ -1,6 +1,9 @@
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <link th:href="@{/style.css}" rel="stylesheet" />
+</head>
     <h1>Todo App</h1>
     <form method="post" action="/addTodo">
         <input type="text" name="todo"/>
@@ -9,7 +12,7 @@
     <hr>
     <ul>
         <li th:each="todo:${todoList}">
-            <span th:text="${todo.todo}"></span>
+            <input type="checkbox" th:text="${todo.todo}" th:checked="false"></span>
         </li>
     </ul>
 </html>
