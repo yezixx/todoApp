@@ -16,19 +16,19 @@ import java.util.List;
 public class TodoController {
     private final ToDoRepository toDoRepository;
 
-    @GetMapping("/")
+    @GetMapping("/list")
     public String index(Model model){
         List<ToDo> toDoList=toDoRepository.findAll();
         model.addAttribute("todoList", toDoList);
         return "todos";
     }
 
-    @PostMapping("/addTodo")
-    public String addTodo(@RequestParam("todo") String todo){
+    @PostMapping("/list/create")
+    public String createToDo(@RequestParam("todo") String todo){
         // database에 저장
         ToDo toDo = new ToDo();
         toDo.setTodo(todo);
         toDoRepository.save(toDo);
-        return "redirect:/";
+        return "redirect:/list";
     }
 }
