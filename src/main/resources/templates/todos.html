@@ -12,7 +12,7 @@
     <hr>
     <ul>
         <li th:each="todo:${todoList}">
-            <input type="checkbox" th:text="${todo.todo}" th:checked="false"></span>
+            <input type="checkbox" name="do" th:text="${todo.todo}" th:checked="false">
         </li>
     </ul>
 </html>
