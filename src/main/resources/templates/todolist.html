@@ -10,12 +10,20 @@
         <input type="submit" value="create"/>
     </form>
     <hr>
-    <ul>
-        <li th:each="todoEntity:${toDoList}">
-            <input type="checkbox" name="todo" th:text="${todoEntity.todo}" th:value="${todoEntity.id}" th:checked="false"/>
-            <button id="delete-btn" th:onclick="deleteItem([[${todoEntity.id}]])">삭제</button>
-        </li>
-    </ul>
+    <table>
+        <thead>
+            <tr>
+                <th>할 일</th>
+                <th>삭제</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:block th:each="todoEntity:${toDoList}">
+                <td th:text="${todoEntity.todo}"></td>
+                <td><button id="delete-btn" th:onclick="deleteItem([[${todoEntity.id}]])">삭제</button></td>
+            </tr>
+        </tbody>
+    </table>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
 
