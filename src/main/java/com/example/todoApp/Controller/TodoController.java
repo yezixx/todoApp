@@ -33,7 +33,7 @@ public class TodoController {
         return "redirect:/list";
     }
 
-    @DeleteMapping("/list/delete/{id}")
+    @PostMapping("/list/delete/{id}")
     public String deleteToDO(@PathVariable("id") Long id){
         this.toDoService.delete(id);
         return "redirect:/list";

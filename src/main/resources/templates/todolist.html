@@ -1,11 +1,13 @@
 <html lang="ko"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <link th:href="@{/style.css}" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <title>TO DO LIST</title>
 </head>
+<body>
     <h1>Todo App</h1>
-    <form method="post" action="/list/create">
+    <form method="post" th:action="@{/list/create}">
         <input type="text" name="todoContent"/>
         <input type="submit" value="create"/>
     </form>
@@ -24,14 +26,19 @@
             </tr>
         </tbody>
     </table>
+</body>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
 
 function deleteItem(id){
-    console.log(id)
-    const url = "/todo/delete/"+id
+    if(!confirm('todo를 삭제하시겠어요?')){
+        return false;
+    }
+
+    console.log(id);
+    const url = "/list/delete/"+id;
     $.ajax({
-        type:'delete',
+        type:'POST',
         url:url,
         contentType:'application/json; charset=utf-8'
         }).done(function() {
