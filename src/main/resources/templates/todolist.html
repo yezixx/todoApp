@@ -6,16 +6,14 @@
 </head>
     <h1>Todo App</h1>
     <form method="post" action="/list/create">
-        <input type="text" name="todo"/>
+        <input type="text" name="todoContent"/>
         <input type="submit" value="create"/>
     </form>
     <hr>
     <ul>
-        <li th:each="todo:${todoList}">
-            <form method="delete" action="/list/delete/{id}">
-                <input type="checkbox" name="todo" th:text="${todo.todo}" th:value="${todo.id}" th:checked="false"/>
-                <button th:onclick="deleteItem([[${todo.id}]])">삭제</button>
-            </form>
+        <li th:each="todoEntity:${toDoList}">
+            <input type="checkbox" name="todo" th:text="${todoEntity.todo}" th:value="${todoEntity.id}" th:checked="false"/>
+            <button id="delete-btn" th:onclick="deleteItem([[${todoEntity.id}]])">삭제</button>
         </li>
     </ul>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>

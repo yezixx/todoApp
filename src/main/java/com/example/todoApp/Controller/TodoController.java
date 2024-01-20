@@ -1,7 +1,7 @@
 package com.example.todoApp.Controller;
 
-import com.example.todoApp.Repository.ToDoRepository;
-import com.example.todoApp.domain.ToDo;
+import com.example.todoApp.Service.ToDoService;
+import com.example.todoApp.domain.ToDoEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,29 +12,30 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class TodoController {
-    private final ToDoRepository toDoRepository;
+    private final ToDoService toDoService;
+
+    @GetMapping("/")
+    public String root(){
+        return "redirect:/list";
+    }
 
     @GetMapping("/list")
-    public String index(Model model){
-        List<ToDo> toDoList=toDoRepository.findAll();
-        model.addAttribute("todoList", toDoList);
-        return "todos";
+    public String list(Model model){
+        List<ToDoEntity> toDoList=this.toDoService.getList();
+        model.addAttribute("toDoList", toDoList);
+        return "todolist";
     }
 
     @PostMapping("/list/create")
-    public String createToDo(@RequestParam("todo") String todo){
+    public String createToDo(@RequestParam("todoContent") String todoContent){
         // database에 저장
-        ToDo toDo = new ToDo();
-        toDo.setTodo(todo);
-        toDoRepository.save(toDo);
+        this.toDoService.create(todoContent);
         return "redirect:/list";
     }
 
     @DeleteMapping("/list/delete/{id}")
     public String deleteToDO(@PathVariable("id") Long id){
-        ToDo toDo = toDoRepository.findById(id)
-                .orElseThrow(()->new IllegalArgumentException("해당 아이템이 없습니다. id=" + id));
-        toDoRepository.delete(toDo);
+        this.toDoService.delete(id);
         return "redirect:/list";
     }
 }

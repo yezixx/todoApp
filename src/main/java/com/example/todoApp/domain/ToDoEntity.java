@@ -8,12 +8,12 @@ import lombok.Setter;
 import org.antlr.v4.runtime.misc.NotNull;
 
 @Table(name = "todo")
-@Entity(name="ToDo")
+@Entity(name="ToDoEntity")
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
-public class ToDo {
+public class ToDoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
