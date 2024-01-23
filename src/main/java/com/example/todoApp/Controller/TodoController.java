@@ -26,16 +26,17 @@ public class TodoController {
         return "todolist";
     }
 
-    @PostMapping("/list/create")
+    @PostMapping("/list")
     public String createToDo(@RequestParam("todoContent") String todoContent){
         // database에 저장
         this.toDoService.create(todoContent);
         return "redirect:/list";
     }
 
-    @PostMapping("/list/delete/{id}")
+    @PostMapping("/list/{id}")
     public String deleteToDO(@PathVariable("id") Long id){
         this.toDoService.delete(id);
         return "redirect:/list";
     }
+
 }
