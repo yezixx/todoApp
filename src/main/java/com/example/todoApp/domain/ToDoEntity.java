@@ -20,4 +20,10 @@ public class ToDoEntity {
 
     @NotNull
     private String todo;
+
+    private boolean completed;
+
+    public Boolean getComplete(){
+        return completed;
+    }
 }

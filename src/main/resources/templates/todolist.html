@@ -9,44 +9,37 @@
     <h1>Todo App</h1>
     <form method="post" th:action="@{/list}">
         <input type="text" name="todoContent"/>
-        <input type="submit" value="create"/>
+        <input type="submit" value="ToDo 추가"/>
     </form>
     <hr>
     <table>
-        <thead>
-            <tr>
-                <th>할 일</th>
-                <th>삭제</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:block th:each="todoEntity:${toDoList}">
-                <td th:text="${todoEntity.todo}"></td>
-                <td><button id="delete-btn" th:onclick="deleteItem([[${todoEntity.id}]])">삭제</button></td>
-            </tr>
-        </tbody>
+        <tr>
+            <th>할 일</th>
+        </tr>
+        <tr th:each="todo:${toDoList}" th:if="${todo.completed} == false">
+            <td th:text="${todo.todo}"></td>
+            <td>
+                <form th:action="@{/list/update/{id} (id=${todo.id})}" method="post" style="display:inline-block;">
+                    <input type="submit" value="완료"></form>
+                <form th:action="@{/list/delete/{id} (id=${todo.id})}" method="post" style="display:inline-block;">
+                    <input type="submit" value="삭제"></form>
+                </td>
+        </tr>
+    </table>
+    <hr>
+    <table>
+        <tr>
+            <th>완료된 할 일</th>
+        </tr>
+        <tr th:each="todo:${toDoList}" th:if="${todo.completed} == true">
+            <td th:text="${todo.todo}"></td>
+            <td>
+                <form th:action="@{/list/update/{id} (id=${todo.id})}" method="post" style="display:inline-block;">
+                    <input type="submit" value="취소"></form>
+                <form th:action="@{/list/delete/{id} (id=${todo.id})}" method="post" style="display:inline-block;">
+                    <input type="submit" value="삭제"></form>
+            </td>
+        </tr>
     </table>
 </body>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script>
-
-function deleteItem(id){
-    if(!confirm('todo를 삭제하시겠어요?')){
-        return false;
-    }
-
-    console.log(id);
-    const url = "/list/"+id;
-    $.ajax({
-        type:'POST',
-        url:url,
-        contentType:'application/json; charset=utf-8'
-        }).done(function() {
-        alert('할 일이 삭제되었습니다.');
-        window.location.href = '/';
-        }).fail(function (error){
-        alert(JSON.stringify(error));
-        });
-       }
-</script>
 </html>

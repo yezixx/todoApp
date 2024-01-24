@@ -20,6 +20,7 @@ public class ToDoService {
     public void create(String todoContent){
         ToDoEntity toDoEntity = new ToDoEntity();
         toDoEntity.setTodo(todoContent);
+        toDoEntity.setCompleted(false);
         this.toDoRepository.save(toDoEntity);
     }
 
@@ -29,5 +30,12 @@ public class ToDoService {
                 .orElseThrow(()->new IllegalArgumentException("해당 Todo가 없습니다. id=" + id));
         toDoRepository.delete(toDoEntity);
         this.toDoRepository.delete(toDoEntity);
+    }
+
+    public void update(Long id){
+        ToDoEntity toDoEntity = toDoRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("해당 Todo가 없습니다. id=" + id));
+        toDoEntity.setCompleted(!toDoEntity.getComplete());
+        toDoRepository.save(toDoEntity);
     }
 }
