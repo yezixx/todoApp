@@ -3,43 +3,56 @@
 <head>
     <link th:href="@{/style.css}" rel="stylesheet" />
     <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>TO DO LIST</title>
 </head>
 <body>
-    <h1>Todo App</h1>
-    <form method="post" th:action="@{/list}">
-        <input type="text" name="todoContent"/>
-        <input type="submit" value="ToDo 추가"/>
+    <h1>Todo List</h1>
+    <form method="post" th:action="@{/list}" class="input-group mb-3">
+        <input class="form-control" type="text" name="todoContent"/>
+        <input class="btn btn-outline-secondary" type="submit" value="ToDo 추가"/>
     </form>
-    <hr>
-    <table>
+    <table class="table table-hover">
+        <thead>
         <tr>
+            <th>#</th>
             <th>할 일</th>
+            <th></th>
         </tr>
+        </thead>
+        <tbody>
         <tr th:each="todo:${toDoList}" th:if="${todo.completed} == false">
+            <td th:text="${todo.id}"></td>
             <td th:text="${todo.todo}"></td>
             <td>
-                <form th:action="@{/list/update/{id} (id=${todo.id})}" method="post" style="display:inline-block;">
-                    <input type="submit" value="완료"></form>
-                <form th:action="@{/list/delete/{id} (id=${todo.id})}" method="post" style="display:inline-block;">
-                    <input type="submit" value="삭제"></form>
-                </td>
-        </tr>
-    </table>
-    <hr>
-    <table>
-        <tr>
-            <th>완료된 할 일</th>
-        </tr>
-        <tr th:each="todo:${toDoList}" th:if="${todo.completed} == true">
-            <td th:text="${todo.todo}"></td>
-            <td>
-                <form th:action="@{/list/update/{id} (id=${todo.id})}" method="post" style="display:inline-block;">
-                    <input type="submit" value="취소"></form>
-                <form th:action="@{/list/delete/{id} (id=${todo.id})}" method="post" style="display:inline-block;">
-                    <input type="submit" value="삭제"></form>
+                <form th:action="@{/list/update/{id} (id=${todo.id})}" method="post" style="display:inline;">
+                    <input type="submit" value="완료" class="btn btn-primary btn-sm"></form>
+                <form th:action="@{/list/delete/{id} (id=${todo.id})}" method="post" style="display:inline;">
+                    <input type="submit" value="삭제" class="btn btn-secondary btn-sm btn-danger"></form>
             </td>
         </tr>
+        </tbody>
+    </table>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>완료된 할 일</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="todo:${toDoList}" th:if="${todo.completed} == true">
+            <td th:text="${todo.id}"></td>
+            <td th:text="${todo.todo}"></td>
+            <td>
+                <form th:action="@{/list/update/{id} (id=${todo.id})}" method="post" style="display:inline;">
+                    <input type="submit" value="취소" class="btn btn-primary btn-sm"></form>
+                <form th:action="@{/list/delete/{id} (id=${todo.id})}" method="post" style="display:inline;">
+                    <input type="submit" value="삭제" class="btn btn-primary btn-sm btn-danger"></form>
+            </td>
+        </tr>
+        </tbody>
     </table>
 </body>
 </html>
