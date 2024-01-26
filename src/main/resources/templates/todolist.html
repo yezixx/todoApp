@@ -7,23 +7,24 @@
     <title>TO DO LIST</title>
 </head>
 <body>
-    <h1>Todo List</h1>
+<div class="container">
+    <h1 style="text-align:center; margin:10px; font-weight: bold;">Todo List</h1>
     <form method="post" th:action="@{/list}" class="input-group mb-3">
-        <input class="form-control" type="text" name="todoContent"/>
-        <input class="btn btn-outline-secondary" type="submit" value="ToDo 추가"/>
+        <input class="form-control" aria-describedby="button-addon2" type="text" name="todoContent"/>
+        <input class="btn btn-outline-secondary" id="button-addon2" type="submit" value="ToDo 추가"/>
     </form>
     <table class="table table-hover">
-        <thead>
+        <thead class="table-light">
         <tr>
             <th>#</th>
             <th>할 일</th>
             <th></th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="table-group-divider">
         <tr th:each="todo:${toDoList}" th:if="${todo.completed} == false">
             <td th:text="${todo.id}"></td>
-            <td th:text="${todo.todo}"></td>
+            <td th:text="${todo.todo}" style="width:50%"></td>
             <td>
                 <form th:action="@{/list/update/{id} (id=${todo.id})}" method="post" style="display:inline;">
                     <input type="submit" value="완료" class="btn btn-primary btn-sm"></form>
@@ -34,17 +35,17 @@
         </tbody>
     </table>
     <table class="table table-hover">
-        <thead>
+        <thead class="table-light">
         <tr>
             <th>#</th>
             <th>완료된 할 일</th>
             <th></th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="table-group-divider">
         <tr th:each="todo:${toDoList}" th:if="${todo.completed} == true">
             <td th:text="${todo.id}"></td>
-            <td th:text="${todo.todo}"></td>
+            <td th:text="${todo.todo}" style="width:50%; text-decoration: line-through;"></td>
             <td>
                 <form th:action="@{/list/update/{id} (id=${todo.id})}" method="post" style="display:inline;">
                     <input type="submit" value="취소" class="btn btn-primary btn-sm"></form>
@@ -54,5 +55,6 @@
         </tr>
         </tbody>
     </table>
+</div>
 </body>
 </html>
