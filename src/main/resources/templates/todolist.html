@@ -23,7 +23,7 @@
         </thead>
         <tbody class="table-group-divider">
         <tr th:each="todo:${toDoList}" th:if="${todo.completed} == false">
-            <td th:text="${todo.id}"></td>
+            <td></td>
             <td th:text="${todo.todo}" style="width:50%"></td>
             <td>
                 <form th:action="@{/list/update/{id} (id=${todo.id})}" method="post" style="display:inline;">
@@ -44,7 +44,7 @@
         </thead>
         <tbody class="table-group-divider">
         <tr th:each="todo:${toDoList}" th:if="${todo.completed} == true">
-            <td th:text="${todo.id}"></td>
+            <td></td>
             <td th:text="${todo.todo}" style="width:50%; text-decoration: line-through;"></td>
             <td>
                 <form th:action="@{/list/update/{id} (id=${todo.id})}" method="post" style="display:inline;">
